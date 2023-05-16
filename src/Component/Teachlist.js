@@ -10,10 +10,18 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const Teachlist = ({ Teacher, setTeacher }) => {
     const history = useHistory();
 
-    function deleteTeach(teachId){
-        const reminingTeach = Teacher.filter((teach, idx) => idx !== teachId);
+   async function deleteTeach(teachId){
+    const response = await fetch(`https://646366317a9eead6fae5ab94.mockapi.io/Teacher/${teachId}`,
+    {
+      method:"DELETE",
+    });
+    const teachdata = response.json()
+      if(teachdata){
+        const reminingTeach = Teacher.filter((teach, idx) => teach.id !== teachId);
         setTeacher(reminingTeach);
         console.log(reminingTeach)
+      }
+        
     }
 
   return (
@@ -32,13 +40,13 @@ const Teachlist = ({ Teacher, setTeacher }) => {
           </CardContent>
           <CardActions>
             <Button
-               onClick={()=>history.push(`/updateteach/${idx}`)}
+               onClick={()=>history.push(`/updateteach/${teach.id}`)}
               size="small"
             >
               Edit
             </Button>
             <Button
-               onClick={()=>deleteTeach(idx)}
+               onClick={()=>deleteTeach(teach.id)}
               size="small"
             >
               Delete

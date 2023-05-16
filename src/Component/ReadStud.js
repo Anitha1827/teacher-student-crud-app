@@ -9,9 +9,16 @@ import { useHistory } from "react-router-dom";
 const ReadStud = ({Student, setStudent}) => {
   const history = useHistory();
   
-  const deleteStudent = (studId)=>{
-    const reminingStudent = Student.filter((stud, idx) => idx !== studId);
+  const deleteStudent = async (studId)=>{
+    const response = await fetch(`https://646366317a9eead6fae5ab94.mockapi.io/Student/${studId}`,{
+      method:"DELETE",
+    });
+    const data = await response.json()
+    if(data){
+      const reminingStudent = Student.filter((stud, idx) => stud.id !== studId);
     setStudent(reminingStudent);
+    }
+    
   }
 
   return (
@@ -28,10 +35,10 @@ const ReadStud = ({Student, setStudent}) => {
             </CardContent>
             <CardActions>
               <Button 
-              onClick={()=>history.push(`/update/${idx}`)}
+              onClick={()=>history.push(`/update/${stud.id}`)}
               size="small">Edit</Button>
               <Button 
-              onClick={()=>deleteStudent(idx)}
+              onClick={()=>deleteStudent(stud.id)}
               size="small">Delete</Button>
             </CardActions>
           </Card>

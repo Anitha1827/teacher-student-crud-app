@@ -23,7 +23,7 @@ const UpdateTeach = ({Teacher,setTeacher}) => {
         setBatchAssigned(updateTeach.BatchAssigned)
     },[updateTeach])
 
-        const updateTeacher = () =>{
+        const updateTeacher = async () =>{
             const TeachObj = {
                 FirstName,
                 LastName,
@@ -31,10 +31,22 @@ const UpdateTeach = ({Teacher,setTeacher}) => {
                 PhoneNumber,
                 BatchAssigned
             }
-            console.log(TeachObj);
-            Teacher[id] = TeachObj;
-            setTeacher([...Teacher]);
-            history.push("/techerslist")
+
+            const response = await fetch(`https://646366317a9eead6fae5ab94.mockapi.io/Teacher/${updateTeach.id}`,{
+              method:"PUT",
+              body:JSON.stringify(TeachObj),
+              headers:{
+                "Content-Type":"application/json"
+              }
+            })
+            const teachdata = response.json()
+            if(teachdata){
+              console.log(TeachObj);
+              Teacher[id] = TeachObj;
+              setTeacher([...Teacher]);
+              history.push("/techerslist")
+            }
+            
         }
         
   return (

@@ -6,15 +6,42 @@ import UpdateStud from './Component/UpdateStud';
 import Dashboard from './Component/Dashboard';
 import AddStud from './Component/AddStud';
 import data from './Data/data';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Teachlist from './Component/Teachlist';
 import AddTeach from './Component/AddTeach';
 import teachdata from './TeachData/TeachData';
 import UpdateTeach from './Component/UpdateTeach';
 import TBase from './Base/TBase';
 function App() {
-  const [Student, setStudent] = useState(data);
-  const [Teacher, setTeacher] = useState(teachdata)
+  const [Student, setStudent] = useState([]);
+  const [Teacher, setTeacher] = useState([])
+
+  useEffect(()=>{
+    const getStudent = async ()=>{
+        const response = await fetch("https://646366317a9eead6fae5ab94.mockapi.io/Student",{
+          method:"GET",
+        });
+        const data = await response.json();
+       if(data){
+        setStudent(data)
+       }
+    }
+    getStudent();
+  },[])
+
+  useEffect(()=>{
+    const getTeacher = async () => {
+      const response = await fetch("https://646366317a9eead6fae5ab94.mockapi.io/Teacher",{
+        method:"GET",
+      });
+      const teachdata = await response.json();
+      if(teachdata){
+        setTeacher(teachdata)
+      }
+    }
+    getTeacher();
+  },[])
+  
   return (
     <div className="App">
       <Switch>

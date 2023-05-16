@@ -14,7 +14,7 @@ const AddTeach = ({Teacher,setTeacher}) => {
     const [PhoneNumber, setPhoneNumber] = useState("");
     const [BatchAssigned, setBatchAssigned] = useState("");
 
-    const createTeacher = () =>{
+    const createTeacher = async () =>{
         const newTeacher = {
             FirstName,
             LastName,
@@ -22,8 +22,15 @@ const AddTeach = ({Teacher,setTeacher}) => {
             PhoneNumber,
             BatchAssigned
         }
-        setTeacher([...Teacher, newTeacher]);
-        console.log(newTeacher);
+        const response = await fetch("https://646366317a9eead6fae5ab94.mockapi.io/Teacher",{
+          method:"POST",
+          body: JSON.stringify(newTeacher),
+          headers :{
+            "Content-Type":"application/json"
+          },
+        })
+        const teachdata = response.json()
+        setTeacher([...Teacher, teachdata])
         history.push("/techerslist");
     }
    
