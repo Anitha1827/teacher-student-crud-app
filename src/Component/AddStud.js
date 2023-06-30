@@ -13,14 +13,14 @@ const AddStud = ({Student,setStudent}) => {
     const[gender, setGender] = useState("");
     const[qualification, setQualification] = useState("");
 
-    const createStudent = async () =>{
+    const createStudent = async () => {
       const newStudent = {
         name,
         gender,
         qualification
     }
    
-      const response = await fetch("https://646366317a9eead6fae5ab94.mockapi.io/Student",{
+      const response = await fetch("https://mentor-studentbackend-connection.onrender.com/Student",{
         method:"POST",
         body:JSON.stringify(newStudent),
         headers :{
@@ -30,7 +30,7 @@ const AddStud = ({Student,setStudent}) => {
      
       const data = await response.json()
         setStudent([...Student, data]);
-        console.log(data);
+        console.log(newStudent);
         history.push("/studentlist")
     }
 

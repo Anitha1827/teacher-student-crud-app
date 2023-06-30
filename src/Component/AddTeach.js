@@ -22,7 +22,7 @@ const AddTeach = ({Teacher,setTeacher}) => {
             PhoneNumber,
             BatchAssigned
         }
-        const response = await fetch("https://646366317a9eead6fae5ab94.mockapi.io/Teacher",{
+        const response = await fetch("https://mentor-studentbackend-connection.onrender.com/mentors",{
           method:"POST",
           body: JSON.stringify(newTeacher),
           headers :{

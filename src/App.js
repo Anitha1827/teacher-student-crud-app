@@ -12,26 +12,34 @@ import AddTeach from './Component/AddTeach';
 import teachdata from './TeachData/TeachData';
 import UpdateTeach from './Component/UpdateTeach';
 import TBase from './Base/TBase';
+import LoginPage from './Component/LoginPage';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 function App() {
   const [Student, setStudent] = useState([]);
   const [Teacher, setTeacher] = useState([])
-
+  const history = useHistory()
   useEffect(()=>{
-    const getStudent = async ()=>{
-        const response = await fetch("https://646366317a9eead6fae5ab94.mockapi.io/Student",{
+    const  getStudent  = async ()=>{
+        const response = await fetch("https://mentor-studentbackend-connection.onrender.com/students/all",{
           method:"GET",
+          headers : {
+            "x-auth-token": localStorage.getItem("token")
+          }
         });
         const data = await response.json();
-       if(data){
-        setStudent(data)
-       }
+        setStudent(data.data)
     }
-    getStudent();
+    if(!localStorage.getItem("token")){
+      history.push("/login")
+    }else{
+      getStudent()
+    }
+    
   },[])
 
   useEffect(()=>{
     const getTeacher = async () => {
-      const response = await fetch("https://646366317a9eead6fae5ab94.mockapi.io/Teacher",{
+      const response = await fetch("https://mentor-studentbackend-connection.onrender.com/mentors/all",{
         method:"GET",
       });
       const teachdata = await response.json();
@@ -69,6 +77,9 @@ function App() {
         setStudent = {setStudent}
         />
         </Route>
+        <Route path="/login">
+          <LoginPage/>
+        </Route>
 
         <Route path="/Techers">
         <TBase/>
@@ -93,6 +104,10 @@ function App() {
         Teacher = {Teacher}
         setTeacher= {setTeacher}
         />
+        </Route>
+
+        <Route path="/login">
+          <LoginPage/>
         </Route>
 
       </Switch>

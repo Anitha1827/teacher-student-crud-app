@@ -5,12 +5,18 @@ import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
 const ReadStud = ({Student, setStudent}) => {
   const history = useHistory();
+  useEffect(()=>{
+    if(!localStorage.getItem("token")){
+      history.push("/login")
+    }
+  })
   
   const deleteStudent = async (studId)=>{
-    const response = await fetch(`https://646366317a9eead6fae5ab94.mockapi.io/Student/${studId}`,{
+    const response = await fetch(`https://mentor-studentbackend-connection.onrender.com/Student/${studId}`,{
       method:"DELETE",
     });
     const data = await response.json()

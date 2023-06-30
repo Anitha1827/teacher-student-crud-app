@@ -11,7 +11,7 @@ const Teachlist = ({ Teacher, setTeacher }) => {
     const history = useHistory();
 
    async function deleteTeach(teachId){
-    const response = await fetch(`https://646366317a9eead6fae5ab94.mockapi.io/Teacher/${teachId}`,
+    const response = await fetch(`https://mentor-studentbackend-connection.onrender.com/mentors/${teachId}`,
     {
       method:"DELETE",
     });
