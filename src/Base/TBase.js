@@ -36,7 +36,7 @@ const TBase = ({ title, description, children }) => {
             </Col>
              <Col sm>
               <Button variant="contained" onClick={() => history.push("/login")}>
-                Home123
+                Home
               </Button>
             </Col>
             <Col sm className="tech">
