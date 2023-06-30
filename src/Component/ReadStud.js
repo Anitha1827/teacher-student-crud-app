@@ -29,7 +29,7 @@ const ReadStud = ({Student, setStudent}) => {
 
   return (
     <Base title={"Student Detail"} description={"Read Students Details here"}>
-       <div className="maincard">
+       <div className="maincard">{console.log(Student)}
       {Student.map((stud, idx) => (
           <Card style={{ width: "50%", marginLeft: "21%" }} key={idx}>
             <CardContent>
